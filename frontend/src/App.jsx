@@ -8,15 +8,36 @@ import Goals from "./pages/Goals";
 import ImportCsv from "./pages/ImportCsv";
 
 function ProtectedRoute({ children }) {
-  return localStorage.getItem("access_token")
-    ? children
-    : <Navigate to="/login" replace />;
+  const accessToken = localStorage.getItem("access_token");
+
+  if (!accessToken) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
+}
+
+function PublicRoute({ children }) {
+  const accessToken = localStorage.getItem("access_token");
+
+  if (accessToken) {
+    return <Navigate to="/" replace />;
+  }
+
+  return children;
 }
 
 export default function App() {
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
+      <Route
+        path="/login"
+        element={
+          <PublicRoute>
+            <Login />
+          </PublicRoute>
+        }
+      />
 
       <Route
         path="/"
@@ -32,6 +53,18 @@ export default function App() {
         <Route path="goals" element={<Goals />} />
         <Route path="import" element={<ImportCsv />} />
       </Route>
+
+      {/* Redirect unknown URLs to the dashboard/login */}
+      <Route
+        path="*"
+        element={
+          localStorage.getItem("access_token") ? (
+            <Navigate to="/" replace />
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
     </Routes>
   );
 }

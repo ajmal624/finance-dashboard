@@ -10,14 +10,47 @@ from .views import (
     TransactionViewSet,
 )
 
+
 router = DefaultRouter()
-router.register("categories", CategoryViewSet, basename="category")
-router.register("transactions", TransactionViewSet, basename="transaction")
-router.register("budgets", BudgetViewSet, basename="budget")
-router.register("goals", SavingsGoalViewSet, basename="goal")
-router.register("dashboard", DashboardViewSet, basename="dashboard")
+
+router.register(
+    "categories",
+    CategoryViewSet,
+    basename="category",
+)
+
+router.register(
+    "transactions",
+    TransactionViewSet,
+    basename="transaction",
+)
+
+router.register(
+    "budgets",
+    BudgetViewSet,
+    basename="budget",
+)
+
+router.register(
+    "goals",
+    SavingsGoalViewSet,
+    basename="goal",
+)
+
+router.register(
+    "dashboard",
+    DashboardViewSet,
+    basename="dashboard",
+)
+
 
 urlpatterns = [
-    path("auth/register/", RegisterView.as_view()),
-    path("", include(router.urls)),
+    path(
+        "auth/register/",
+        RegisterView.as_view(),
+    ),
+    path(
+        "",
+        include(router.urls),
+    ),
 ]

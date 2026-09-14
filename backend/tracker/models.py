@@ -8,7 +8,11 @@ class Category(models.Model):
         ("expense", "Expense"),
     ]
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="categories")
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="categories",
+    )
     name = models.CharField(max_length=100)
     type = models.CharField(max_length=10, choices=TYPE_CHOICES)
     color = models.CharField(max_length=7, default="#6366f1")
@@ -27,7 +31,11 @@ class Transaction(models.Model):
         ("expense", "Expense"),
     ]
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="transactions")
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="transactions",
+    )
     category = models.ForeignKey(
         Category,
         null=True,
@@ -49,10 +57,23 @@ class Transaction(models.Model):
 
 
 class Budget(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="budgets")
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="budgets")
-    month = models.DateField(help_text="Use the first day of the budget month")
-    limit = models.DecimalField(max_digits=12, decimal_places=2)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="budgets",
+    )
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
+        related_name="budgets",
+    )
+    month = models.DateField(
+        help_text="Use the first day of the budget month"
+    )
+    limit = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+    )
 
     class Meta:
         unique_together = ("user", "category", "month")
@@ -62,12 +83,29 @@ class Budget(models.Model):
 
 
 class SavingsGoal(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="goals")
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="goals",
+    )
     name = models.CharField(max_length=150)
-    target_amount = models.DecimalField(max_digits=12, decimal_places=2)
-    current_amount = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-    target_date = models.DateField(null=True, blank=True)
-    color = models.CharField(max_length=7, default="#22c55e")
+    target_amount = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+    )
+    current_amount = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+    )
+    target_date = models.DateField(
+        null=True,
+        blank=True,
+    )
+    color = models.CharField(
+        max_length=7,
+        default="#22c55e",
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

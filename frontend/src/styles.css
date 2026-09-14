@@ -32,6 +32,11 @@ button:hover {
   background: #4338ca;
 }
 
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
 input,
 select {
   width: 100%;
@@ -39,6 +44,12 @@ select {
   border-radius: 8px;
   background: white;
   padding: 11px;
+}
+
+input:focus,
+select:focus {
+  border-color: #4f46e5;
+  outline: 2px solid rgb(79 70 229 / 15%);
 }
 
 .app-shell {
@@ -87,6 +98,10 @@ select {
   border: 1px solid #4c557d;
   margin-top: 40px;
   width: 100%;
+}
+
+.logout-button:hover {
+  background: #30365b;
 }
 
 .content {
@@ -232,6 +247,7 @@ th {
   background: #4f46e5;
   border-radius: inherit;
   height: 100%;
+  transition: width 0.3s ease;
 }
 
 .progress-bar.over {
@@ -288,8 +304,11 @@ th {
 }
 
 .success {
+  background: #dcfce7;
+  border-radius: 8px;
   color: #15803d;
   font-weight: 700;
+  padding: 10px;
 }
 
 .upload-form {
@@ -298,12 +317,47 @@ th {
   margin-top: 18px;
 }
 
+.upload-form input[type="file"] {
+  background: #f8fafc;
+}
+
 pre {
   background: #111827;
   border-radius: 8px;
   color: #d1fae5;
   overflow-x: auto;
   padding: 16px;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.chart-card {
+  min-height: 360px;
+}
+
+.budget-card h2,
+.goal-grid h2 {
+  margin-bottom: 8px;
+}
+
+@media (max-width: 1000px) {
+  .sidebar {
+    width: 220px;
+  }
+
+  .content {
+    padding: 24px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 800px) {
@@ -341,5 +395,37 @@ pre {
 
   table {
     font-size: 0.85rem;
+  }
+
+  th,
+  td {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 500px) {
+  .sidebar {
+    padding: 20px 16px;
+  }
+
+  .sidebar nav {
+    grid-template-columns: 1fr;
+  }
+
+  .content {
+    padding: 16px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .auth-card {
+    padding: 24px;
+  }
+
+  .row-between {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
